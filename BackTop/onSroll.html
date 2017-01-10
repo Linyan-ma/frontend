@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		#BackTop{
+			position: fixed;
+			bottom: 50px;
+			right: 20px;
+		}
+	</style>
+	<script type="text/javascript" src="../jquery-3.1.0.js"></script>
+	<script type="text/javascript">
+		$(function(){ 
+			$('#BackTop').click(function(){
+				$('body,html').animate({scrollTop:0},1000);
+			});
+		});
+	</script>
+</head>
+<body>
+	<a href="javaScript:;" id="BackTop">返回顶部</a>
+	<img src="pic/淘宝网.png">
+</body>
+</html>

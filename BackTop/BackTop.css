@@ -1,0 +1,16 @@
+/*#container{
+			margin:20px 120px 0;
+		}
+		#footer{
+			font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+		}
+		#content{
+			margin:20px 120px 0;
+		}*/
+		#btn{
+			position: fixed;
+			right: 20px;
+			bottom: 20px;
+			background-image: url("D:\Users\Myl\Pictures\素材\BackTop.jpg");
+			display:none;
+		}
