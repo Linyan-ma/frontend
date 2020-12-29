@@ -1,0 +1,26 @@
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Garbage files
+.DS_Store
+
+# Dependency directories
+.npm
+node_modules
+package-lock.json
+
+# TypeScript
+typings/
+*.tsbuildinfo
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
