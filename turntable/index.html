@@ -1,87 +1,111 @@
+<!-- @format -->
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <!-- <script src="./turntable.js" type="module"></script> -->
-    <script type="module">
-      // 兼容性-1：浏览器需canvas，2，浏览器需支持图片的crossOrigin属性（不生成缩略图可忽略）.
-      // 可以通过 实例._属性名来动态设置实例的状态（例：turn._disabled = true）
-      // 目前仅开放了disabled和result属性的设置
-      import turntable from './turntable.js'
-      const turn = new turntable(document.body, {
-        turntableMounted: function(canvas) {
-          // 可在此生成缩略图文件上传
-          console.log('mouted')
-          let img = new Image()
-          img.src = canvas.toDataURL()
-          let p = document.createElement('p')
-          p.innerText = '缩略图：'
-          document.body.appendChild(p)
-          document.body.appendChild(img)
-        },
-        onStart: function() {
-          // 开始旋转，可在此计算点击次数
-          // turn._disabled = true
-          // 自己调用接口设置结果。转盘时间默认为5s，若5s后未设置，转盘停留在初始位置
-          // 前端自己计算结果or调用接口获取结果
-          setTimeout(() => {
-            // _result只保存第几个奖品，奖品内容，自己从reward数组获取
-            turn._result = parseInt(Math.random() * 6) + 1
-          }, 2000)
-        },
-        onEnd: function(data) {
-          // 中奖结果-弹窗填写信息等其他结果
-          console.log(data)
-        },
-        reward: [
-          {
-            name: '螺蛳粉',
-            icon: 'https://p4.ssl.qhimg.com/t01441d1a43619e1d90.png',
-            probability: '20%',
-            fan_color: 'rgb(255, 236, 190)',
-            font_color: '#ff6467',
-          },
-          {
-            name: '牛蛙',
-            icon: 'https://p2.ssl.qhimg.com/t01708e109c0b836895.png',
-            probability: '20%',
-            fan_color: 'rgb(255, 236, 190,0.3)',
-            font_color: '#ff6467',
-          },
-          {
-            name: '火锅',
-            icon: 'https://p4.ssl.qhimg.com/t01cc0379e4a6bc4cae.png',
-            probability: '20%',
-            fan_color: 'rgb(255, 236, 190)',
-            font_color: '#ff6467',
-          },
-          {
-            name: '涮肉',
-            icon: 'https://p2.ssl.qhimg.com/t01708e109c0b836895.png',
-            probability: '20%',
-            fan_color: 'rgb(255, 236, 190,0.3)',
-            font_color: '#ff6467',
-          },
-          {
-            name: '谢谢参与',
-            icon: 'https://p4.ssl.qhimg.com/t01cc0379e4a6bc4cae.png',
-            probability: '20%',
-            fan_color: 'rgb(255, 236, 190)',
-            font_color: '#ff6467',
-          },
-          {
-            name: '烧烤',
-            icon: 'https://p4.ssl.qhimg.com/t01cc0379e4a6bc4cae.png',
-            probability: '20%',
-            fan_color: 'rgb(255, 236, 190,0.3)',
-            font_color: '#ff6467',
-          },
-        ],
-      })
-    </script>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>张小懒得吃饭时间</title>
+        <style>
+            body {
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            }
+            canvas {
+                /* margin: 0 auto; */
+            }
+            .turntable {
+                user-select: none;
+                margin: 0 auto;
+                margin-top: 120px;
+            }
+            body {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <script src="./turntable.js" type="module"></script> -->
+        <script type="module">
+            // 兼容性-1：浏览器需canvas，2，浏览器需支持图片的crossOrigin属性（不生成缩略图可忽略）.
+            // 可以通过 实例._属性名来动态设置实例的状态（例：turn._disabled = true）
+            // 目前仅开放了disabled和result属性的设置
+            import turntable from './turntable.js'
+            const turn = new turntable(document.body, {
+                turntableMounted: function (canvas) {
+                    // 可在此生成缩略图文件上传
+                    console.log('mouted')
+                    let img = new Image()
+                    img.src = canvas.toDataURL()
+                    // let p = document.createElement('p')
+                    // p.innerText = '缩略图：'
+                    // document.body.appendChild(p)
+                    // document.body.appendChild(img)
+                },
+                onStart: function () {
+                    // 开始旋转，可在此计算点击次数
+                    // turn._disabled = true
+                    // 自己调用接口设置结果。转盘时间默认为5s，若5s后未设置，转盘停留在初始位置
+                    // 前端自己计算结果or调用接口获取结果
+                    setTimeout(() => {
+                        // _result只保存第几个奖品，奖品内容，自己从reward数组获取
+                        turn._result = parseInt(Math.random() * 6) + 1
+                    }, 2000)
+                },
+                onEnd: function (data) {
+                    // 中奖结果-弹窗填写信息等其他结果
+                    console.log(data)
+                },
+                reward: [
+                    {
+                        name: '螺蛳粉',
+                        icon:
+                            'https://p4.ssl.qhimg.com/t01441d1a43619e1d90.png',
+                        probability: '20%',
+                        fan_color: 'rgb(255, 236, 190)',
+                        font_color: '#ff6467',
+                    },
+                    {
+                        name: '牛蛙',
+                        icon:
+                            'https://p2.ssl.qhimg.com/t01708e109c0b836895.png',
+                        probability: '20%',
+                        fan_color: 'rgb(255, 236, 190,0.3)',
+                        font_color: '#ff6467',
+                    },
+                    {
+                        name: '火锅',
+                        icon:
+                            'https://p4.ssl.qhimg.com/t01cc0379e4a6bc4cae.png',
+                        probability: '20%',
+                        fan_color: 'rgb(255, 236, 190)',
+                        font_color: '#ff6467',
+                    },
+                    {
+                        name: '涮肉',
+                        icon:
+                            'https://p2.ssl.qhimg.com/t01708e109c0b836895.png',
+                        probability: '20%',
+                        fan_color: 'rgb(255, 236, 190,0.3)',
+                        font_color: '#ff6467',
+                    },
+                    {
+                        name: '谢谢参与',
+                        icon:
+                            'https://p4.ssl.qhimg.com/t01cc0379e4a6bc4cae.png',
+                        probability: '20%',
+                        fan_color: 'rgb(255, 236, 190)',
+                        font_color: '#ff6467',
+                    },
+                    {
+                        name: '烧烤',
+                        icon:
+                            'https://p4.ssl.qhimg.com/t01cc0379e4a6bc4cae.png',
+                        probability: '20%',
+                        fan_color: 'rgb(255, 236, 190,0.3)',
+                        font_color: '#ff6467',
+                    },
+                ],
+            })
+        </script>
+    </body>
 </html>
