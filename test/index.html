@@ -1,0 +1,65 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>context</title>
+        <style>
+            .img1,
+            img2 {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <img
+                class="img1"
+                src="https://p2.ssl.qhimg.com/t01d5147ccbeccead0c.png"
+                alt=""
+            />
+        </div>
+        <img
+            class="img2"
+            src="https://p0.ssl.qhimg.com/t01ce0cb590b6f44d59.png"
+            alt=""
+        />
+        <script
+            crossorigin="anonymous"
+            integrity="sha384-qu2J8HSjv8EaYlbzBdbVeJncuCmfBqnZ4h3UIBZ9WTZ/5Wrqt0/9hofL0046NCkc"
+            src="https://lib.baomitu.com/zepto/1.2.0/zepto.min.js"
+        ></script>
+        <script>
+            function longPress($el, callback) {
+                let timmer = null
+                $el.one({
+                    touchstart: () => {
+                        timmer = setTimeout(() => {
+                            callback()
+                        }, 800)
+                    },
+                    touchmove: (event) => {
+                        event.preventDefault()
+                        clearTimeout(timer)
+                        timer = null
+                    },
+                    touchend: function (event) {
+                        event.preventDefault()
+                        clearTimeout(timer)
+                        return false
+                    },
+                })
+            }
+            longPress($('.QR_CODE_ELEMENT'), function () {
+                alert('longpress')
+                $('body').append('<p>longpress</p>')
+            })
+            $('.img2').one('contextmenu', function () {
+                alert('contextmenu')
+                $('body').append('<p>contextmenu</p>')
+            })
+        </script>
+    </body>
+</html>
