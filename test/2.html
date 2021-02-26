@@ -15,12 +15,15 @@
       img {
         width: 100%;
       }
+      #ua {
+        user-select: all;
+      }
     </style>
   </head>
   <body>
     <a
       data-v-3a7591e8=""
-      href="https://cdn2.benfukeji.com/apk/yiqi-360sc2.apk#11"
+      href="https://cdn2.benfukeji.com/apk/yiqi-360sc2.apk"
       aria-label="images"
       style="width: 100%"
       target="_blank"
@@ -29,6 +32,7 @@
         data-v-3a7591e8=""
         src="https://p1.ssl.qhimgs3.com/t01e195c3f0c351dfca.jpg"
     /></a>
+    <div id="download">下载</div>
     <div
       class="j-guide"
       style="
@@ -52,6 +56,12 @@
     <p>userAgent:<span id="ua"></span></p>
     <script>
       document.getElementById("ua").innerText = window.navigator.userAgent;
+      document
+        .getElementById("download")
+        .addEventListener("click", function () {
+          window.location.href =
+            "https://cdn2.benfukeji.com/apk/yiqi-360sc2.apk";
+        });
     </script>
   </body>
 </html>
