@@ -13,7 +13,11 @@
     <style></style>
   </head>
   <body>
-    <p>v jd</p>
+    <input type="text" id="url" />
+    <button id="iframe">iframe点击</button>
+    <button id="location">location点击</button>
+
+    <p>v 测试</p>
     <div>
       <img
         class="img1"
@@ -59,6 +63,20 @@
       $(".img2").one("contextmenu", function () {
         alert("contextmenu");
         $("body").append("<p>contextmenu</p>");
+      });
+    </script>
+    <script>
+      $("#iframe").on("click", function () {
+        let url = $("#url").val();
+        iframe = document.createElement("iframe");
+        iframe.style.cssText = "display:none;border:0;width:0;height:0;";
+        document.body.append(iframe);
+        iframe.src = url;
+      });
+      $("#location").on("click", function () {
+        let url = $("#url").val();
+        console.log(url);
+        window.location.href = url;
       });
     </script>
   </body>
