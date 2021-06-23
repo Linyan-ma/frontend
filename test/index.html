@@ -16,6 +16,7 @@
     <input type="text" id="url" />
     <button id="iframe">iframe点击</button>
     <button id="location">location点击</button>
+    <button id="atag">a点击</button>
 
     <p>v 测试</p>
     <div>
@@ -77,6 +78,14 @@
         let url = $("#url").val();
         console.log(url);
         window.location.href = url;
+      });
+      $("#atag").on("click", function () {
+        let url = $("#url").val();
+        const tagA = document.createElement("a");
+        tagA.setAttribute("href", url);
+        tagA.style.display = "none";
+        document.body.append(tagA);
+        tagA.click();
       });
     </script>
   </body>
