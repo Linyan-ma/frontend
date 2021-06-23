@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="tmall"></div>
+    <div id="jd"></div>
+    <script src="https://s.ssl.qhres2.com/baomitu/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $.ajax({
+        url: "http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp",
+        type: "GET",
+      }).then((res) => {
+        console.log(res);
+      });
+    </script>
+  </body>
+</html>
