@@ -7,11 +7,12 @@
     <title>Document</title>
   </head>
   <body>
-    <div>004</div>
+    <div>006</div>
+    <!-- <script src="//cdn.jsdelivr.net/npm/eruda"></script> -->
     <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.3.4/vconsole.min.js"></script>
     <script>
       // eruda.init();
-      window.vConsole = new VConsole();
+      new VConsole();
       console.log("控制台打印信息");
     </script>
     <script>
@@ -53,7 +54,9 @@
                 : function () {
                     (w[n].c = w[n].c || []).push(arguments);
                   };
+            console.log("send");
             _qha("send", send_params);
+            console.log("sended");
           })(window, "_qha");
         } catch (_e) {
           console.log(_e);
