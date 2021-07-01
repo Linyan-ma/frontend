@@ -7,7 +7,7 @@
     <title>Document</title>
   </head>
   <body>
-    <div>001</div>
+    <div>002</div>
     <script src="//cdn.jsdelivr.net/npm/eruda"></script>
     <script>
       eruda.init();
@@ -40,6 +40,7 @@
           et: 31,
           cts: 101,
         };
+        console.log("2s later", _qha);
         try {
           (function (w, n) {
             w[n] =
@@ -51,7 +52,7 @@
             _qha("send", send_params);
           })(window, "_qha");
         } catch (_e) {
-          // console.log(_e)
+          console.log(_e);
         }
       }, 2000);
     </script>
