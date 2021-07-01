@@ -33,5 +33,26 @@
       _qha("set", "page", "/");
       _qha("send", "pageview");
     </script>
+    <script>
+      setTimeout(() => {
+        var send_params = {
+          et: 31,
+          cts: 101,
+        };
+        try {
+          (function (w, n) {
+            w[n] =
+              typeof w[n] === "function"
+                ? w[n]
+                : function () {
+                    (w[n].c = w[n].c || []).push(arguments);
+                  };
+            _qha("send", send_params);
+          })(window, "_qha");
+        } catch (_e) {
+          // console.log(_e)
+        }
+      }, 2000);
+    </script>
   </body>
 </html>
