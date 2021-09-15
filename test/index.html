@@ -13,6 +13,12 @@
     <style></style>
   </head>
   <body>
+    <div id="content"></div>
+    <script>
+      let w =  window.innerWidth 
+      let h = window.innerHeight  
+      document.getElementById('content').innerText = `${w}x${h}`
+    </script>
     <input type="text" id="url" />
     <button id="iframe">iframe点击</button>
     <button id="location">location点击</button>
