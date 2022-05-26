@@ -7,8 +7,11 @@
   <title>Document</title>
 </head>
 <body>
+  <button id="share">360 share</button>
   <script>
-       var desc = "24小时全网热点";
+    document.getElementById('share').onclick = share
+    function share(){
+      var desc = "24小时全网热点";
       var title = "今日热搜";
       var link = `https://h5.mse.360.cn/jinrirebang.html#/`;
       let imgUrl = "https://p4.ssl.qhimg.com/t0183260cb408b0523e.png";
@@ -25,10 +28,13 @@
         "ShareParams4WXCircle=" +
           btoa(encodeURIComponent(JSON.stringify(shareParam))) +
           "&onShareCallback"
-      );
+        );
+      console.log('1234')
       }catch(e){
         console.log('error')
       }
+    }
+
       
   </script>
 </body>
