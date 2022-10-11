@@ -1,0 +1,9 @@
+{
+  "name": "psd",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "psd": "^3.4.0"
+  }
+}

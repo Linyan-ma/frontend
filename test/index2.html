@@ -1,0 +1,98 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="refresh"
+      content="0.1;url=openapp.jdmobile://virtual?params=%7B%22category%22:%22jump%22,%22des%22:%22m%22,%22url%22:%22https://u.jd.com/zF11Fz3%22,%22keplerID%22:%220%22,%22keplerFrom%22:%221%22,%22kepler_param%22:%7B%22source%22:%22kepler-open%22,%22otherData%22:%7B%22mopenbp7%22:%220%22%7D%7D,%22union_open%22:%22union_cps%22%7D"
+    />
+    <title>context</title>
+    <style></style>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script>
+      let w =  window.innerWidth 
+      let h = window.innerHeight  
+      document.getElementById('content').innerText = `${w}x${h}`
+    </script>
+    <input type="text" id="url" />
+    <button id="iframe">iframe点击</button>
+    <button id="location">location点击</button>
+    <button id="atag">a点击</button>
+
+    <p>v 测试</p>
+    <div>
+      <img
+        class="img1"
+        src="https://p2.ssl.qhimg.com/t01d5147ccbeccead0c.png"
+        alt=""
+      />
+    </div>
+    <img
+      class="img2"
+      src="https://p0.ssl.qhimg.com/t01ce0cb590b6f44d59.png"
+      alt=""
+    />
+    <script
+      crossorigin="anonymous"
+      integrity="sha384-qu2J8HSjv8EaYlbzBdbVeJncuCmfBqnZ4h3UIBZ9WTZ/5Wrqt0/9hofL0046NCkc"
+      src="https://lib.baomitu.com/zepto/1.2.0/zepto.min.js"
+    ></script>
+    <script>
+      function longPress($el, callback) {
+        let timmer = null;
+        $el.one({
+          touchstart: () => {
+            timmer = setTimeout(() => {
+              callback();
+            }, 800);
+          },
+          touchmove: (event) => {
+            event.preventDefault();
+            clearTimeout(timer);
+            timer = null;
+          },
+          touchend: function (event) {
+            event.preventDefault();
+            clearTimeout(timer);
+            return false;
+          },
+        });
+      }
+      longPress($(".img1"), function () {
+        alert("longpress");
+        $("body").append("<p>longpress</p>");
+      });
+      $(".img2").one("contextmenu", function () {
+        alert("contextmenu");
+        $("body").append("<p>contextmenu</p>");
+      });
+    </script>
+    <script>
+      $("#iframe").on("click", function () {
+        let url = $("#url").val();
+        iframe = document.createElement("iframe");
+        iframe.style.cssText = "display:none;border:0;width:0;height:0;";
+        document.body.append(iframe);
+        iframe.src = url;
+      });
+      $("#location").on("click", function () {
+        let url = $("#url").val();
+        console.log(url);
+        window.location.href = url;
+      });
+      $("#atag").on("click", function () {
+        let url = $("#url").val();
+        const tagA = document.createElement("a");
+        tagA.setAttribute("href", url);
+        tagA.style.display = "none";
+        document.body.append(tagA);
+        tagA.click();
+      });
+    </script>
+  </body>
+</html>
