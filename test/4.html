@@ -8,7 +8,13 @@
 </head>
 <body>
   <div id="content">
-    <a href="alipays://platformapi/startapp?appId=2018032302435038&page=pages%2Fhome%2Fhome">支付宝小程序</a>
+    <span id="a">支付宝小程序</span>
+    <script>
+      document.getElementById('a').addEventListener('click',function(){
+        console.log('11111');
+        window.location.href = 'alipays://platformapi/startapp?appId=2018032302435038&page=pages%2Fhome%2Fhome'
+      })
+    </script>
   </div>
 </body>
 </html>
