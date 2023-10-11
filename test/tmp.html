@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function promiseTimeout(promise, delay, type) {
+      console.info(`[Promise.race]  ${type}开始创建`)
+      // return '调用promiseTimeout'
+      let timeout = new Promise(function (reslove, reject) {
+        setTimeout(function () {
+          reject('ERROR:promise timeout')
+        }, delay)
+      })
+      console.log(`[Promise.race]  ${type}创建成功`)
+      return Promise.race([timeout, promise])
+    }
+
+    let p1 = new Promise((resolve,reject) => {
+      setTimeout(() => {
+        reject('fail')
+      }, 500)
+    })
+
+    promiseTimeout(p1, 1000, 'test').then(res => console.log('then')).catch(e => console.log(e))
+  </script>
+</body>
+
+</html>

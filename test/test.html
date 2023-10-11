@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>mv</title>
+</head>
+
+<body>
+  <script>
+    var mid = getCookie('__mid')
+    var asc = getCookie('__asc')
+    if (!mid || !asc) {
+      getInfo(function (info) {
+        if (info) {
+          //写入cookie
+          for (var key in info) {
+            if (info.hasOwnProperty(key)) {
+              info[key] && setCookie(key, info[key])
+            }
+          }
+          // 沿用旧的参数，传mid字符串,实际为cookie中带入
+          var data = JSON.stringify({
+            msg: 'mid'
+          })
+          sendMsg(data)
+        }
+      })
+    }
+    // 发送 mid
+
+    function setCookie(k, v) {
+      var expires = new Date()
+      expires.setTime(expires.getTime() + 1000 * 24 * 60 * 60 * 30)
+      var protocol = window.location.protocol
+      var str =
+        k +
+        '=' +
+        v +
+        '; expires= ' +
+        expires.toString() +
+        '; path=/;SameSite=None; Secure'
+      if (protocol === 'https:') {
+        str += ';SameSite=None; Secure'
+      }
+      document.cookie = str
+    }
+    function getCookie(cookieName) {
+      var cookies = document.cookie.split('; ')
+
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].split('=')
+        var name = cookie[0]
+        var value = cookie[1]
+
+        // 移除键名和值中的空格
+        name = name && name.trim()
+        value = value && value.trim()
+
+        // 检查是否为目标 Cookie
+        if (name === cookieName) {
+          return value
+        }
+      }
+
+      // 如果未找到目标 Cookie，则返回 null 或自定义值
+      return null
+    }
+    // getMid() added on 2017-10-30
+    // update on 2023-05-17:mid逐步下线，新增加密参数asc
+    // 2.新增卫士获取渠道
+    function getInfo(callback) {
+      var browerinfo = getInfoFromBrower()
+      console.log('浏览器信息：', browerinfo);
+      getInfoFromWS(function (data) {
+        var info = data
+          ? {
+            __mid: data.mid,
+            __asc: data.asc
+          }
+          : null
+        console.log('卫士信息：', browerinfo);
+
+      })
+
+    }
+    function getInfoFromBrower() {
+      var data = null
+      try {
+        // IE
+        if (window.wdextcmd) {
+          data = {}
+          if (window.wdextcmd.GetMid) {
+            data.__mid = window.wdextcmd.GetMid()
+          }
+          if (window.wdextcmd.GetASC) {
+            data.__asc = window.wdextcmd.GetASC()
+          }
+        }
+        // SE + EE
+        if (window.external && external.GetSID) {
+          data = {}
+          if (external.GetMID) {
+            data.__mid = external.GetMID(external.GetSID(window))
+          }
+          if (external.GetASC) {
+            data.__asc = external.GetASC(external.GetSID(window))
+          }
+        }
+      } catch (e) { }
+      return data
+    }
+    function getInfoFromWS(wsCallback) {
+      jsonp(
+        'https://local.info.g9hc4.cn:54360',
+        function (data) {
+          if (data) {
+            wsCallback(data)
+          } else {
+            jsonp('https://local.info.g9hc4.cn:51360', wsCallback, {
+              name: 'uuidjsonpcb2020'
+            })
+          }
+        },
+        { name: 'uuidjsonpcb2020' }
+      )
+    }
+    function jsonp(url, callback, opts) {
+      opts = opts || {}
+      var timeout = opts.timeout || 5000
+      var script = document.createElement('script')
+      var callbackName =
+        opts.name || 'jsonpCallback' + Math.floor(Math.random() * 100000)
+
+      var timer = setTimeout(function () {
+        cleanup()
+      }, timeout)
+      function cleanup(data) {
+        callback(data)
+        if (timer) clearTimeout(timer)
+        delete window[callbackName]
+        if (script.parentNode) script.parentNode.removeChild(script)
+      }
+      window[callbackName] = function (data) {
+        cleanup(data)
+      }
+      script.onerror = function (e) {
+        cleanup()
+      }
+      document.body.appendChild(script)
+      script.src = url + '?callback=' + callbackName + '&t=' + Date.now()
+    }
+
+    /**
+     * 向外 post 消息
+     */
+    function sendMsg(data) {
+      if (!data) {
+        return
+      }
+
+      var supportPostMessage = 'postMessage' in window
+      if (supportPostMessage) {
+        window.parent.postMessage(data, '*')
+      } else {
+        var postMessage = window.navigator['_qha_message']
+        if (typeof postMessage === 'function') {
+          postMessage(data)
+        } else {
+          throw new Error('postMessage is not a function')
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
