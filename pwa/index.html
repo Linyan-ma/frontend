@@ -8,8 +8,10 @@
 </head>
 <body>
   <h3>Hello PWA</h3>
+  <p id="location"></p>
 </body>
-<!-- <script>
+<script>
+  document.getElementById('location').innerText = window.location.href
   // 检测浏览器是否支持SW
   if(navigator.serviceWorker != null){
     navigator.serviceWorker.register('sw.js')
@@ -17,5 +19,5 @@
       console.log('支持sw:',registartion.scope)
     })
   }
-</script> -->
+</script>
 </html>
