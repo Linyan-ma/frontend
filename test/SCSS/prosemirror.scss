@@ -1,0 +1,745 @@
+/* ProseMirror 编辑器统一样式文件 */
+/* 整合所有 ProseMirror 相关样式，便于维护 */
+
+/* ========== 基础编辑器样式 ========== */
+.ProseMirror {
+  min-height: 100%;
+  outline: none;
+  height: 100%;
+  cursor: text;
+
+  /* 空内容时的占位符 */
+  &:empty::before {
+    content: attr(data-placeholder);
+    color: #adb5bd;
+    pointer-events: none;
+    height: 100%;
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* 确保空内容时也能点击 */
+  &:empty {
+    height: 100%;
+    min-height: inherit;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  /* ========== 图片样式 ========== */
+  img.tiptap-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1rem 0;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    /* 上传中的图片样式 */
+    &.uploading {
+      opacity: 0.7;
+      filter: grayscale(0.3);
+      animation: pulse 1.5s ease-in-out infinite;
+      border: 2px dashed #ccc;
+      background-color: #f9f9f9;
+    }
+
+    /* 选中状态 */
+    &.ProseMirror-selectednode {
+      outline: 2px solid #4285f4;
+      border-radius: 4px;
+    }
+  }
+
+  /* 图片包装在链接中的样式 */
+  a img.tiptap-image {
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.01);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  /* ========== 列表样式 ========== */
+  ul {
+    padding-left: 1.5rem !important;
+    list-style-type: disc !important;
+    margin: 1rem 0 !important;
+
+    li {
+      list-style-type: disc !important;
+      margin: 0.5rem 0 !important;
+    }
+  }
+
+  ol {
+    padding-left: 1.5rem !important;
+    list-style-type: decimal !important;
+    margin: 1rem 0 !important;
+
+    li {
+      list-style-type: decimal !important;
+      margin: 0.5rem 0 !important;
+    }
+  }
+
+  /* 任务列表样式 */
+  ul[data-type='taskList'] {
+    padding-left: 0 !important;
+    margin: 1rem 0 !important;
+    list-style-type: none !important;
+
+    li {
+      display: flex !important;
+      align-items: center !important;
+      margin: 0.5rem 0 !important;
+      list-style-type: none !important;
+      position: relative !important;
+
+      > label {
+        margin-right: 0.5rem !important;
+        flex-shrink: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        -webkit-user-select: none !important;
+        user-select: none !important;
+        cursor: pointer !important;
+      }
+
+      > div {
+        flex: 1 !important;
+        margin: 0 !important;
+        word-break: break-word !important;
+      }
+
+      /* 已完成任务的样式 */
+      &[data-checked='true'] > div > p {
+        text-decoration: line-through !important;
+        color: #999 !important;
+      }
+
+      /* 移除默认的圆点 */
+      &::before {
+        display: none !important;
+      }
+    }
+  }
+
+  /* 只有编辑模式才有交互样式 */
+  &:not(.ProseMirror-readonly) {
+    ul[data-type='taskList'] li > label {
+      cursor: pointer !important;
+    }
+  }
+
+  /* 只读模式下禁用交互 */
+  &.ProseMirror-readonly {
+    ul[data-type='taskList'] li > label {
+      cursor: default !important;
+      pointer-events: none !important;
+    }
+  }
+
+  /* ========== 标题样式 ========== */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 1em 0 0.5em;
+    line-height: 1.3;
+  }
+
+  h1 {
+    font-size: 1.75em;
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  h3 {
+    font-size: 1.25em;
+  }
+
+  /* ========== 段落和其他元素样式 ========== */
+  p {
+    margin: 0.5em 0;
+  }
+
+  blockquote {
+    border-left: 4px solid #ddd;
+    margin-left: 0;
+    padding-left: 1em;
+    font-style: italic;
+    color: #666;
+  }
+
+  pre {
+    background-color: #f0f0f0;
+    padding: 0.7em 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+  }
+
+  /* ========== 段落缩进支持 ========== */
+  p[style*='margin-left'],
+  h1[style*='margin-left'],
+  h2[style*='margin-left'],
+  h3[style*='margin-left'],
+  h4[style*='margin-left'],
+  h5[style*='margin-left'],
+  h6[style*='margin-left'] {
+    transition: margin-left 0.2s ease;
+  }
+
+  /* 使用 data-indent 属性的缩进样式 */
+  [data-indent='1'] {
+    margin-left: 24px !important;
+  }
+  [data-indent='2'] {
+    margin-left: 48px !important;
+  }
+  [data-indent='3'] {
+    margin-left: 72px !important;
+  }
+  [data-indent='4'] {
+    margin-left: 96px !important;
+  }
+  [data-indent='5'] {
+    margin-left: 120px !important;
+  }
+  [data-indent='6'] {
+    margin-left: 144px !important;
+  }
+  [data-indent='7'] {
+    margin-left: 168px !important;
+  }
+  [data-indent='8'] {
+    margin-left: 192px !important;
+  }
+
+  /* ========== 表格相关样式 ========== */
+  .tiptap-table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    margin: 1rem 0;
+    overflow: hidden;
+
+    td,
+    th {
+      border: 1px solid #ddd;
+      padding: 8px;
+      position: relative;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+  }
+
+  /* 表格拖拽相关样式 */
+  &.resize-cursor {
+    cursor: col-resize !important;
+
+    * {
+      cursor: col-resize !important;
+    }
+  }
+
+  /* 拖拽悬停状态 */
+  &.resize-hover .node-table table td::after,
+  &.resize-hover .node-table table th::after {
+    background-color: var(--resize-handle-color, #1890ff) !important;
+  }
+
+  /* 列宽调整手柄 */
+  .column-resize-handle {
+    position: absolute;
+    right: -2px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    cursor: col-resize;
+    background-color: transparent;
+    z-index: 20;
+    pointer-events: auto;
+
+    &:hover {
+      background-color: var(--resize-handle-hover-color, #1890ff);
+    }
+
+    &:active {
+      background-color: var(--resize-handle-hover-color, #1890ff);
+    }
+  }
+
+  /* 表格单元格选中状态 */
+  table td.selectedCell,
+  table th.selectedCell {
+    background-color: var(--cell-selected-bg-color, rgba(24, 144, 255, 0.1)) !important;
+    border: 2px solid var(--cell-selected-border-color, rgba(24, 144, 255, 0.3)) !important;
+    position: relative !important;
+    box-shadow: 0 0 0 1px var(--cell-selected-border-color, rgba(24, 144, 255, 0.3)) !important;
+  }
+
+  /* 多选单元格样式 */
+  table td.selectedCell:not(:only-child),
+  table th.selectedCell:not(:only-child) {
+    background-color: var(--cell-multi-selected-bg-color, rgba(24, 144, 255, 0.15)) !important;
+    border-color: var(--cell-multi-selected-border-color, rgba(24, 144, 255, 0.4)) !important;
+    box-shadow: 0 0 0 1px var(--cell-multi-selected-border-color, rgba(24, 144, 255, 0.4)) !important;
+  }
+
+  /* 选中单元格的悬停效果 */
+  table td.selectedCell:hover,
+  table th.selectedCell:hover {
+    background-color: var(--cell-multi-selected-bg-color, rgba(24, 144, 255, 0.15)) !important;
+    border-color: var(--cell-multi-selected-border-color, rgba(24, 144, 255, 0.4)) !important;
+  }
+
+  /* 单选单元格高亮边框动画 */
+  .selectedCell:only-child::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 1px solid var(--cell-selected-border-color, rgba(24, 144, 255, 0.3));
+    border-radius: 2px;
+    pointer-events: none;
+    animation: selectedCellPulse 2s ease-in-out infinite;
+    z-index: 1;
+  }
+
+  /* 多选时的静态高亮边框 */
+  .selectedCell:not(:only-child)::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 1px solid var(--cell-multi-selected-border-color, rgba(24, 144, 255, 0.4));
+    border-radius: 2px;
+    pointer-events: none;
+    opacity: 0.8;
+    z-index: 1;
+  }
+
+  /* 表格段落样式 */
+  table td p,
+  table th p {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+/* ========== 多级编号有序列表样式 ========== */
+/* 全局禁用多级编号列表的默认标记 */
+ol.multi-level-ordered-list,
+ol.multi-level-ordered-list li {
+  list-style: none !important;
+  list-style-type: none !important;
+
+  &::marker {
+    content: none !important;
+    display: none !important;
+  }
+}
+
+/* 强制初始化计数器 */
+ol.multi-level-ordered-list {
+  counter-reset: section !important;
+}
+
+.ProseMirror {
+  /* 重置所有有序列表的编号 */
+  ol.multi-level-ordered-list {
+    counter-reset: section !important;
+    list-style: none !important;
+    list-style-type: none !important;
+    margin: 1rem 0;
+    padding-left: 0 !important;
+
+    /* 第一级列表项 */
+    > li {
+      counter-increment: section;
+      position: relative;
+      margin: 0.5rem 0;
+      padding-left: 1.5rem;
+
+      /* 第一级编号：数字 */
+      &::before {
+        content: counter(section) '. ';
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-weight: 500;
+        color: var(--el-text-color-primary, #303133);
+        min-width: 1.2rem;
+        text-align: left;
+        line-height: 1.6;
+      }
+
+      /* 第二级嵌套列表 */
+      > ol {
+        counter-reset: subsection !important;
+        list-style: none !important;
+        list-style-type: none !important;
+        margin: 0.5rem 0;
+        padding-left: 0;
+
+        > li {
+          counter-increment: subsection;
+          padding-left: 1.5rem;
+
+          /* 第二级编号：小写字母 */
+          &::before {
+            content: counter(subsection, lower-alpha) '. ';
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: 500;
+            color: var(--el-text-color-primary, #303133);
+            min-width: 1.2rem;
+            text-align: left;
+          }
+
+          /* 第三级嵌套列表 */
+          > ol {
+            counter-reset: subsubsection !important;
+            list-style: none !important;
+            list-style-type: none !important;
+            margin: 0.5rem 0;
+            padding-left: 0;
+
+            > li {
+              counter-increment: subsubsection;
+              padding-left: 2rem;
+
+              /* 第三级编号：小写罗马数字 */
+              &::before {
+                content: counter(subsubsection, lower-roman) '. ';
+                position: absolute;
+                left: 0;
+                top: 0;
+                font-weight: 500;
+                color: var(--el-text-color-primary, #303133);
+                min-width: 1.5rem;
+                text-align: left;
+              }
+
+              /* 第四级嵌套列表 */
+              > ol {
+                counter-reset: subsubsubsection !important;
+                list-style: none !important;
+                list-style-type: none !important;
+                margin: 0.5rem 0;
+                padding-left: 0;
+
+                > li {
+                  counter-increment: subsubsubsection;
+                  padding-left: 2.5rem;
+
+                  /* 第四级编号：数字 */
+                  &::before {
+                    content: counter(subsubsubsection) '. ';
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    font-weight: 500;
+                    color: var(--el-text-color-primary, #303133);
+                    min-width: 1.2rem;
+                    text-align: left;
+                  }
+
+                  /* 第五级嵌套列表 */
+                  > ol {
+                    counter-reset: subsubsubsubsection !important;
+                    list-style: none !important;
+                    list-style-type: none !important;
+                    margin: 0.5rem 0;
+                    padding-left: 0;
+
+                    > li {
+                      counter-increment: subsubsubsubsection;
+                      padding-left: 3rem;
+
+                      /* 第五级编号：小写罗马数字 */
+                      &::before {
+                        content: counter(subsubsubsubsection, lower-roman) '. ';
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        font-weight: 500;
+                        color: var(--el-text-color-primary, #303133);
+                        min-width: 1.5rem;
+                        text-align: left;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    /* 确保列表项内容不与编号重叠 */
+    li {
+      list-style: none !important;
+      list-style-type: none !important;
+      position: relative;
+
+      /* 禁用浏览器默认的 ::marker 伪元素 */
+      &::marker {
+        content: none !important;
+        display: none !important;
+      }
+
+      /* 列表项内的段落不要有额外边距 */
+      p {
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      /* 列表项内的其他元素 */
+      > * {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      /* 确保嵌套内容有正确的间距 */
+      > ol {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+    }
+  }
+
+  /* 编辑器焦点状态 */
+  ol.multi-level-ordered-list li {
+    &:focus-within::before {
+      color: var(--el-color-primary, #409eff);
+    }
+  }
+
+  /* 选中状态 */
+  ol.multi-level-ordered-list .ProseMirror-selectednode li::before {
+    color: var(--el-color-primary, #409eff);
+  }
+}
+
+/* ========== 全屏模式样式 ========== */
+.tiptap-editor.is-fullscreen {
+  .ProseMirror {
+    min-height: calc(100vh - 158px); /* 总高度减去上下padding */
+    height: auto !important; /* 允许内容自然增长 */
+    overflow: visible;
+    padding: 0; /* 移除ProseMirror自身的padding */
+    margin: 0;
+  }
+}
+
+/* ========== 动画定义 ========== */
+@keyframes pulse {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes selectedCellPulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 768px) {
+  .ProseMirror {
+    ol.multi-level-ordered-list {
+      > li {
+        padding-left: 1.5rem;
+
+        > ol > li {
+          padding-left: 1.75rem;
+
+          > ol > li {
+            padding-left: 2rem;
+
+            > ol > li {
+              padding-left: 2.25rem;
+
+              > ol > li {
+                padding-left: 2.5rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ========== 暗色主题支持 ========== */
+html.dark {
+  .ProseMirror {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+
+    /* 空内容占位符 */
+    &:empty::before {
+      color: #666;
+    }
+
+    /* 图片样式 */
+    img.tiptap-image {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+      &.uploading {
+        background-color: #2a2a2a;
+        border-color: #555;
+      }
+    }
+
+    /* 列表样式 */
+    ul[data-type='taskList'] li[data-checked='true'] > div > p {
+      color: #777 !important;
+    }
+
+    /* 其他元素样式 */
+    blockquote {
+      border-left-color: #555;
+      color: #ccc;
+    }
+
+    pre {
+      background-color: #2d2d2d;
+      color: #e0e0e0;
+    }
+
+    code {
+      background-color: #2a2a2a;
+      color: #409eff;
+    }
+
+    /* 表格样式 */
+    .tiptap-table {
+      td,
+      th {
+        border-color: #555;
+      }
+
+      th {
+        background-color: #2d2d2d;
+      }
+    }
+
+    /* 多级列表样式 */
+    ol.multi-level-ordered-list li::before {
+      color: var(--el-text-color-primary, #e5eaf3);
+    }
+  }
+}
+
+/* ========== 兼容性样式 ========== */
+/* 对于不支持CSS嵌套的浏览器 */
+@supports not (selector(ol > li > ol)) {
+  .ProseMirror ol.multi-level-ordered-list {
+    counter-reset: section;
+    list-style: none !important;
+    list-style-type: none !important;
+  }
+
+  .ProseMirror ol.multi-level-ordered-list > li {
+    counter-increment: section;
+    list-style: none !important;
+    list-style-type: none !important;
+  }
+
+  .ProseMirror ol.multi-level-ordered-list > li::before {
+    content: counter(section) '. ';
+  }
+
+  .ProseMirror ol.multi-level-ordered-list > li > ol {
+    counter-reset: subsection;
+    list-style: none !important;
+    list-style-type: none !important;
+  }
+
+  .ProseMirror ol.multi-level-ordered-list > li > ol > li {
+    counter-increment: subsection;
+    list-style: none !important;
+    list-style-type: none !important;
+  }
+
+  .ProseMirror ol.multi-level-ordered-list > li > ol > li::before {
+    content: counter(subsection, lower-alpha) '. ';
+  }
+
+  .ProseMirror ol.multi-level-ordered-list > li > ol > li > ol {
+    counter-reset: subsubsection;
+    list-style: none !important;
+    list-style-type: none !important;
+  }
+
+  .ProseMirror ol.multi-level-ordered-list > li > ol > li > ol > li {
+    counter-increment: subsubsection;
+    list-style: none !important;
+    list-style-type: none !important;
+  }
+
+  .ProseMirror ol.multi-level-ordered-list > li > ol > li > ol > li::before {
+    content: counter(subsubsection, lower-roman) '. ';
+  }
+
+  .ProseMirror ol.multi-level-ordered-list > li > ol > li > ol > li > ol {
+    counter-reset: subsubsubsection;
+    list-style: none !important;
+    list-style-type: none !important;
+  }
+
+  .ProseMirror ol.multi-level-ordered-list > li > ol > li > ol > li > ol > li {
+    counter-increment: subsubsubsection;
+    list-style: none !important;
+    list-style-type: none !important;
+  }
+
+  .ProseMirror ol.multi-level-ordered-list > li > ol > li > ol > li > ol > li::before {
+    content: counter(subsubsubsection) '. ';
+  }
+
+  .ProseMirror ol.multi-level-ordered-list > li > ol > li > ol > li > ol > li > ol {
+    counter-reset: subsubsubsubsection;
+    list-style: none !important;
+    list-style-type: none !important;
+  }
+
+  .ProseMirror ol.multi-level-ordered-list > li > ol > li > ol > li > ol > li > ol > li {
+    counter-increment: subsubsubsubsection;
+    list-style: none !important;
+    list-style-type: none !important;
+  }
+
+  .ProseMirror ol.multi-level-ordered-list > li > ol > li > ol > li > ol > li > ol > li::before {
+    content: counter(subsubsubsubsection, lower-roman) '. ';
+  }
+}

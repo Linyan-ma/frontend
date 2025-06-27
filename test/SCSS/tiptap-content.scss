@@ -1,0 +1,435 @@
+/* TipTap 编辑器内容展示样式 - 适配小程序环境 */
+/* 基于 PC 端 EditorContentView.scss 和相关样式文件改造 */
+
+/* 导入统一的 ProseMirror 样式 */
+@use '../../../src/styles/prosemirror.scss';
+
+.tiptap-content-view {
+  position: relative;
+  line-height: 1.6;
+  color: #2c3e50;
+  width: 100%;
+  font-size: 15px;
+  word-break: break-word;
+
+  /* 图片相关样式 */
+  img,
+  img.tiptap-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 12px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:active {
+      transform: scale(0.98);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  /* 标题样式 */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 20px 0 12px 0;
+    line-height: 1.3;
+    font-weight: 600;
+    color: #2c3e50;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 22px;
+  }
+  h3 {
+    font-size: 20px;
+  }
+  h4 {
+    font-size: 18px;
+  }
+  h5 {
+    font-size: 16px;
+  }
+  h6 {
+    font-size: 15px;
+  }
+
+  /* 段落样式 */
+  p {
+    margin: 8px 0;
+    line-height: 1.6;
+  }
+
+  /* 引用样式 */
+  blockquote {
+    border-left: 4px solid #3498db;
+    margin: 16px 0;
+    padding-left: 16px;
+    font-style: italic;
+    color: #7f8c8d;
+    background: rgba(52, 152, 219, 0.05);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+  }
+
+  /* 代码相关样式 */
+  code {
+    background-color: #f5f6f7;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+    font-size: 13px;
+    color: #e74c3c;
+    border: 1px solid #e9ecef;
+  }
+
+  /* 代码块样式 */
+  pre {
+    margin: 16px 0;
+    padding: 0;
+    overflow-x: auto;
+    border-radius: 8px;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+    line-height: 1.5;
+    position: relative;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+
+    code {
+      display: block;
+      padding: 16px;
+      font-family: inherit;
+      overflow-x: auto;
+      background: transparent;
+      border: none;
+      color: #2c3e50;
+      font-size: 14px;
+    }
+  }
+
+  /* 表格样式 可以滚动 */
+  .node-table .scrollWrapper {
+    overflow-x: auto;
+  }
+
+  /* 表格样式 - 白色系主题 */
+  .node-table,
+  table {
+    border-collapse: collapse;
+    table-layout: auto;
+    width: 100%;
+    margin: 0 !important;
+    border: 1px solid #e1e5e9;
+    background-color: #ffffff;
+    border-radius: 8px;
+    font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+    td,
+    th {
+      border: 1px solid #e1e5e9;
+      padding: 12px 16px;
+      vertical-align: top;
+      line-height: 1.5;
+      word-break: break-word;
+      background-color: #ffffff;
+      color: #333333;
+    }
+
+    th {
+      font-weight: 600;
+      text-align: left;
+      background-color: #f7f8fa;
+      color: #2c3e50;
+      border-bottom: 2px solid #e1e5e9;
+    }
+
+    /* 表格行的轻微交替背景 */
+    tbody tr:nth-child(even) td {
+      background-color: #fafbfc;
+    }
+
+    /* 悬停效果 - 浅色高亮 */
+    tbody tr:hover td {
+      background-color: #f0f4f8;
+    }
+  }
+
+  /* 链接样式 */
+  a {
+    color: #3498db;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+
+    &:active {
+      color: #2980b9;
+      border-bottom-color: #2980b9;
+    }
+  }
+
+  /* 强调样式 */
+  strong,
+  b {
+    font-weight: 600;
+    color: #2c3e50;
+  }
+
+  em,
+  i {
+    font-style: italic;
+  }
+
+  /* 删除线 */
+  s,
+  del {
+    text-decoration: line-through;
+    color: #7f8c8d;
+  }
+
+  /* 下划线 */
+  u {
+    text-decoration: underline;
+  }
+
+  /* 高亮文本 */
+  mark {
+    background-color: #fff3cd;
+    padding: 2px 4px;
+    border-radius: 3px;
+    color: #856404;
+  }
+
+  /* 水平分割线 */
+  hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #e9ecef, transparent);
+    margin: 24px 0;
+  }
+
+  /* 响应式设计 */
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+
+    h1 {
+      font-size: 22px;
+    }
+    h2 {
+      font-size: 20px;
+    }
+    h3 {
+      font-size: 18px;
+    }
+    h4 {
+      font-size: 16px;
+    }
+
+    .node-table,
+    table {
+      font-size: 13px;
+      border: 1px solid #e1e5e9 !important;
+      background-color: #ffffff !important;
+
+      td,
+      th {
+        padding: 10px 12px;
+        font-size: 13px;
+        border: 1px solid #e1e5e9 !important;
+        background-color: #ffffff !important;
+        color: #333333 !important;
+      }
+
+      th {
+        font-size: 13px;
+        background-color: #f7f8fa !important;
+        color: #2c3e50 !important;
+      }
+
+      /* 移动端表格行交替背景 */
+      tbody tr:nth-child(even) td {
+        background-color: #fafbfc !important;
+      }
+    }
+
+    pre code {
+      font-size: 13px;
+      padding: 12px;
+    }
+  }
+
+  /* 超小屏幕优化 */
+  @media screen and (max-width: 480px) {
+    .node-table,
+    table {
+      font-size: 12px;
+      border: 1px solid #e1e5e9 !important;
+      background-color: #ffffff !important;
+
+      td,
+      th {
+        padding: 8px 10px;
+        font-size: 12px;
+        border: 1px solid #e1e5e9 !important;
+        background-color: #ffffff !important;
+        color: #333333 !important;
+      }
+
+      th {
+        font-size: 12px;
+        background-color: #f7f8fa !important;
+        color: #2c3e50 !important;
+      }
+
+      /* 超小屏幕表格行交替背景 */
+      tbody tr:nth-child(even) td {
+        background-color: #fafbfc !important;
+      }
+    }
+  }
+
+  /* Toggle 折叠块样式 - 用于显示保存的内容 */
+  .toggle-wrapper,
+  div[data-type='toggle'] {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin: 12px 0;
+    background: #fff;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: #c0c0c0;
+    }
+
+    /* 默认收起状态 */
+    &[data-collapsed='true'] {
+      .toggle-content {
+        display: none !important;
+      }
+
+      .toggle-header {
+        border-radius: 8px;
+      }
+
+      .toggle-arrow {
+        transform: rotate(-90deg);
+      }
+    }
+
+    .toggle-header {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      background: #f8f9fa;
+      border-radius: 8px 8px 0 0;
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background: #e9ecef;
+      }
+
+      &:active {
+        background: #dee2e6;
+      }
+    }
+
+    .toggle-arrow {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 8px;
+      color: #666;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+
+      /* SVG 箭头图标 */
+      svg {
+        width: 12px;
+        height: 12px;
+        stroke: currentColor;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill: none;
+      }
+    }
+
+    .toggle-title {
+      flex: 1;
+      min-height: 20px;
+      font-weight: 500;
+      color: #333;
+      line-height: 1.4;
+      word-break: break-word;
+
+      /* 空标题时显示placeholder */
+      &:empty::before {
+        content: '点击添加标题';
+        color: #999;
+        font-style: italic;
+      }
+    }
+
+    .toggle-content {
+      padding: 16px;
+      border-top: 1px solid #eee;
+      animation: slideDown 0.2s ease;
+
+      /* 内容最小高度 */
+      min-height: 20px;
+    }
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    to {
+      opacity: 1;
+      max-height: 500px;
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+  }
+
+  /* 移动端优化 */
+  @media screen and (max-width: 768px) {
+    .toggle-wrapper,
+    div[data-type='toggle'] {
+      .toggle-header {
+        padding: 10px 12px;
+      }
+
+      .toggle-content {
+        padding: 12px;
+      }
+
+      .toggle-arrow {
+        width: 18px;
+        height: 18px;
+        margin-right: 6px;
+
+        svg {
+          width: 10px;
+          height: 10px;
+        }
+      }
+    }
+  }
+}
